@@ -361,9 +361,9 @@ class HomePage extends StatelessWidget {
                       height: heightFactor * 370,
                     child: Center(
                       child: controller.isRestaurantsLoading.value
-                          ? CircularProgressIndicator()
+                          ? const CircularProgressIndicator()
                           : controller.filteredRestaurants.isEmpty
-                              ? Text('There is no restaurants found')
+                              ? const Text('There is no restaurants found')
                               : ListView.builder(
                                   itemCount:
                                       controller.filteredRestaurants.length,
@@ -413,7 +413,7 @@ class HomePage extends StatelessWidget {
                                                             width: 40,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: Color
+                                                              color: const Color
                                                                   .fromARGB(
                                                                       255,
                                                                       8,
@@ -526,10 +526,9 @@ class HomePage extends StatelessWidget {
                                                                     height: 35,
                                                                   ),
                                                                   Text(
-                                                                    controller
+                                                                    '${controller
                                                                             .filteredRestaurants[index]
-                                                                            .discount +
-                                                                        '% FLAT OFF',
+                                                                            .discount}% FLAT OFF',
                                                                     style: const TextStyle(
                                                                         color: Colors
                                                                             .red,
@@ -542,11 +541,10 @@ class HomePage extends StatelessWidget {
                                                                 ],
                                                               ),
                                                               Text(
-                                                                controller
+                                                                '${controller
                                                                         .filteredRestaurants[
                                                                             index]
-                                                                        .distance +
-                                                                    ' meters away',
+                                                                        .distance} meters away',
                                                                 style:
                                                                     const TextStyle(
                                                                   color: Color

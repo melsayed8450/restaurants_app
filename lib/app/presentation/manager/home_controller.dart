@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:restaurants_app/app/data/routes/remote_routes.dart';
 import 'package:restaurants_app/app/domain/entities/restaurant_entity.dart';
 
@@ -75,22 +74,28 @@ class HomeController extends GetxController {
 
           isRestaurantsLoading.value = false;
         } else {
-          print('API request failed. Code: $code');
+          if (kDebugMode) {
+            print('API request failed. Code: $code');
+          }
           isRestaurantsLoading.value = false;
         }
       } else {
-        print('HTTP request failed. Status code: ${response.statusCode}');
+        if (kDebugMode) {
+          print('HTTP request failed. Status code: ${response.statusCode}');
+        }
         isRestaurantsLoading.value = false;
       }
     } catch (e) {
-      print('Error: $e');
+      if (kDebugMode) {
+        print('Error: $e');
+      }
       isRestaurantsLoading.value = false;
     }
   }
 
   void filterList(String query) {
     if (query.isNotEmpty && query != '') {
-      filteredRestaurants.value = restaurants.value
+      filteredRestaurants.value = restaurants
           .where((restaurant) =>
               restaurant.name.toLowerCase().contains(query.toLowerCase()))
           .toList();
