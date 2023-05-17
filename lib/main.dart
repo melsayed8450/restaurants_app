@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'app/app.dart';
 
-void main() async {
+Future<void> main() async {
 WidgetsFlutterBinding.ensureInitialized();
+LocationPermission permission = await Geolocator.requestPermission();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(const MyApp());

@@ -358,7 +358,7 @@ class HomePage extends StatelessWidget {
                 ),
                 Obx(() {
                   return SizedBox(
-                    height: heightFactor * 310,
+                      height: heightFactor * 370,
                     child: Center(
                       child: controller.isRestaurantsLoading.value
                           ? CircularProgressIndicator()
@@ -378,8 +378,9 @@ class HomePage extends StatelessWidget {
                                         child: Stack(
                                           children: [
                                             const Positioned.fill(
-                                              child:
-                                                  Center(child: CircularProgressIndicator()),
+                                              child: Center(
+                                                  child:
+                                                      CircularProgressIndicator()),
                                             ),
                                             Container(
                                               height: 225,
