@@ -18,17 +18,22 @@ class HomeController extends GetxController {
   final isBurgerSelected = false.obs;
 
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
+    await getCoordinates();
     getRestaurants();
   }
 
+  Future<void> getCoordinates() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    latitude = position.latitude;
+    longitude = position.longitude;
+  }
+
   Future<String> getLocationFromCoordinates() async {
+    await getCoordinates();
     try {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      latitude = position.latitude;
-      longitude = position.longitude;
       List<Placemark> placemarks =
           await placemarkFromCoordinates(latitude, longitude);
 
@@ -46,6 +51,8 @@ class HomeController extends GetxController {
 
   Future<void> getRestaurants() async {
     try {
+      print(longitude);
+      print(latitude);
       isRestaurantsLoading.value = true;
       final dio = Dio();
       dio.options.baseUrl = AppRemoteRoutes.baseUrl;
@@ -105,36 +112,36 @@ class HomeController extends GetxController {
   }
 
   void selectCategory(String query) {
-    if(query == 'all'){
-  isAllselected.value = true;
-  isPizzaSelected.value = false;
-  isChickenSelected.value = false;
-  isSaladSelected.value = false;
-  isBurgerSelected.value = false;
-    }else if(query == 'pizza'){
-  isAllselected.value = false;
-  isPizzaSelected.value = true;
-  isChickenSelected.value = false;
-  isSaladSelected.value = false;
-  isBurgerSelected.value = false;
-    }else if(query == 'chicken'){
-  isAllselected.value = false;
-  isPizzaSelected.value = false;
-  isChickenSelected.value = true;
-  isSaladSelected.value = false;
-  isBurgerSelected.value = false;
-    }else if(query == 'salad'){
-  isAllselected.value = false;
-  isPizzaSelected.value = false;
-  isChickenSelected.value = false;
-  isSaladSelected.value = true;
-  isBurgerSelected.value = false;
-    }else if(query == 'burger'){
-  isAllselected.value = false;
-  isPizzaSelected.value = false;
-  isChickenSelected.value = false;
-  isSaladSelected.value = false;
-  isBurgerSelected.value = true;
+    if (query == 'all') {
+      isAllselected.value = true;
+      isPizzaSelected.value = false;
+      isChickenSelected.value = false;
+      isSaladSelected.value = false;
+      isBurgerSelected.value = false;
+    } else if (query == 'pizza') {
+      isAllselected.value = false;
+      isPizzaSelected.value = true;
+      isChickenSelected.value = false;
+      isSaladSelected.value = false;
+      isBurgerSelected.value = false;
+    } else if (query == 'chicken') {
+      isAllselected.value = false;
+      isPizzaSelected.value = false;
+      isChickenSelected.value = true;
+      isSaladSelected.value = false;
+      isBurgerSelected.value = false;
+    } else if (query == 'salad') {
+      isAllselected.value = false;
+      isPizzaSelected.value = false;
+      isChickenSelected.value = false;
+      isSaladSelected.value = true;
+      isBurgerSelected.value = false;
+    } else if (query == 'burger') {
+      isAllselected.value = false;
+      isPizzaSelected.value = false;
+      isChickenSelected.value = false;
+      isSaladSelected.value = false;
+      isBurgerSelected.value = true;
     }
     if (query != 'all') {
       filteredRestaurants.value = restaurants
